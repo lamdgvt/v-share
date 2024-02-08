@@ -1,6 +1,6 @@
 {
-  "name": "my-app2",
-  "productName": "my-app2",
+  "name": "v-share",
+  "productName": "v-share",
   "version": "1.0.0",
   "description": "My Electron application description",
   "main": ".webpack/main",
