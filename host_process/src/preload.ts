@@ -4,6 +4,7 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
 contextBridge.exposeInMainWorld('electron', {
-    shutdown: () => ipcRenderer.send('shutdown')
+    shutdown: () => ipcRenderer.send('shutdown'),
+    restart: () => ipcRenderer.send('restart'),
+    sheep: () => ipcRenderer.send('sheep'),
 })
-
