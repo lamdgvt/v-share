@@ -13,8 +13,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/i18n',
     '@nuxt/image',
+    '@vexip-ui/nuxt',
     '@nuxtjs/tailwindcss',
-    'nuxt-icons'
+    'nuxt-icons',
   ],
   vite: {
     css: {

@@ -32,3 +32,15 @@ export interface BaseDataConfigIO<T> {
     results: T[]; // 数据
     totalResults: number; // 总页数
 }
+
+export interface ActorsPictureIO {
+    id: number; // 主键
+    gender: number, // 性别
+    known_for_department: string, // 部门
+    name: string, // 名字
+    original_name: string, // 原来的名字
+    popularity: number, // 人气
+    profile_path: string, // 图片
+    cast_id: number,
+    character: string, // 字符
+}

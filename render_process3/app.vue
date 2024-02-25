@@ -20,5 +20,6 @@ useHead({
 <style>
 .body {
   font-weight: 500;
+
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <div class="movie-card mx-3 cursor-pointer">
-        <NuxtImg :src="tmdbImagesPrefix + '/w500' + record[defaultKey.src]" />
+        <NuxtImg :src="tmdbImagesPrefix + 'w500' + record[defaultKey.src]" />
         <div class="text-lg mt-2">{{ record[defaultKey.title] }}</div>
         <div class="align-middle">
             <a-rate class="text-sm" :value="formatAverage(record[defaultKey.rate])" allow-half disabled />

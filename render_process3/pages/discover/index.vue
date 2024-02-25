@@ -1,11 +1,12 @@
 <template>
     <!-- Banner 轮播图 -->
-    <common-banner :record="selectedData" />
+    <common-banner :record="selectedData" :recordList="movieConfig.results" />
 
     <!-- 热门电影 -->
     <common-bar title="热门电影">
         <common-card v-for="(item) in movieConfig.results" :record="item" :key="item.id" />
     </common-bar>
+
     <!-- 热门电视剧 -->
     <common-bar title="热门电视剧">
         <common-card v-for="(item) in tvConfig.results" :record="item" :key="item.id" :props="{ title: 'name' }" />
@@ -15,7 +16,7 @@
 <script lang="ts" setup>
 import type { MovieIO, TvIO, MovieConfigIO, TvConfigIO } from '~/types/discover'
 
-const selected = ref(1);
+const selected = ref(2);
 
 const selectedData = computed(() => movieConfig.results[selected.value])
 
