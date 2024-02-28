@@ -10,12 +10,9 @@
             <common-actors :record="creditsList" />
             <!-- 更多类似的 -->
 
-            <common-bar title="更多类似的">
+            <common-bar title="更多类似的" v-if="moreSimilarity.results.length">
                 <common-card v-for="(item) in moreSimilarity.results" :record="item" :key="item.id" />
             </common-bar>
-            <!-- <common-banner v-for="(item) in moreSimilarity.results" :record="item" :key="item.id"
-                :props="{ title: 'name' }" /> -->
-
         </VTabPanel>
         <VTabPanel label="照片">
             <Picture :backdrops="picture.backdrops" :logos="picture.logos" :posters="picture.posters" />
@@ -50,7 +47,7 @@ const moreSimilarity = reactive<SimilarityConfigIO>({
 // 获取详情信息
 const getDetails = async () => {
     const { id } = route.params
-    const { data, status } = await useFetch(`/api/details/movie/${id}`, { query: { language: 'zh-CN' } })
+    const { data, status } = await useFetch(`/api/details/movie/${id}`, { query: { language: 'zh-CN', lazy: true } })
 
     if (status.value === 'success')
         Object.assign(record, data.value)
@@ -59,7 +56,7 @@ const getDetails = async () => {
 // 获取图片
 const getPictures = async () => {
     const { id } = route.params
-    const { data, status } = await useFetch(`/api/picture/movie/${id}`)
+    const { data, status } = await useFetch(`/api/picture/movie/${id}`, { lazy: true })
 
     if (status.value === 'success')
         Object.assign(picture, data.value)
@@ -68,19 +65,16 @@ const getPictures = async () => {
 // 获取演员信息 
 const getCredits = async () => {
     const { id } = route.params
-    const { data, status } = await useFetch(`/api/credits/movie/${id}`)
+    const { data, status } = await useFetch(`/api/credits/movie/${id}`, { lazy: true })
 
-    if (status.value === 'success') {
+    if (status.value === 'success')
         creditsList.value = data.value?.cast || [];
-
-        console.log(creditsList.value)
-    }
 }
 
 // 获取更多类似的电影 
 const getSimilar = async () => {
     const { id } = route.params
-    const { data, status } = await useFetch(`/api/similar/movie/${id}`, { query: { language: 'zh-CN' } })
+    const { data, status } = await useFetch(`/api/similar/movie/${id}`, { query: { language: 'zh-CN' }, lazy: true })
 
     if (status.value === 'success') {
         const { total_results: totalResults, page, results } = data.value
@@ -91,7 +85,7 @@ const getSimilar = async () => {
 }
 
 // 初始化
-await Promise.allSettled([getDetails(), getPictures(), getCredits(), getSimilar()])
+// await Promise.allSettled([getDetails(), getPictures(), getCredits(), getSimilar()])
 
 </script>
 

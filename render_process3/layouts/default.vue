@@ -3,7 +3,7 @@
         <SideTools />
         <div class="content-page">
             <NuxtLoadingIndicator />
-            <NuxtPage />
+            <slot />
         </div>
     </div>
 </template>

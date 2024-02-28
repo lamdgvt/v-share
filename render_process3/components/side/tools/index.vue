@@ -1,15 +1,17 @@
 <script lang="ts" setup>
+const router = useRouter()
+
 </script>
 
 <template>
     <div class="side-tools h-full w-20 bg-black">
         <span class="icon">
-            <nuxt-link>
-                <nuxt-icon name="sideTools/home" />
-            </nuxt-link>
+            <nuxt-icon name="sideTools/home" />
         </span>
         <span class="icon">
-            <nuxt-icon name="sideTools/videoLibrary" />
+            <nuxt-link to="/discover">
+                <nuxt-icon name="sideTools/videoLibrary" />
+            </nuxt-link>
         </span>
         <span class="icon">
             <nuxt-icon name="sideTools/tv" />
