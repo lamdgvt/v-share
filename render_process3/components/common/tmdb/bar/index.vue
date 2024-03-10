@@ -3,7 +3,6 @@
         <!-- 标题 -->
         <div class="text-2xl px-8 py-4">
             {{ props.title }}
-
             <span class="float-right text-base cursor-pointer">查看更多</span>
         </div>
         <!-- 数据 -->

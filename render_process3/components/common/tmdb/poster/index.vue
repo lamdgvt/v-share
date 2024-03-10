@@ -5,7 +5,7 @@
                 {{ record.title }}
             </div>
             <div class="banner-content-info-rate">
-                <a-rate class="text-sm" :value="formatAverage(record.vote_average)" allow-half disabled />
+                <!-- <a-rate class="text-sm" :value="formatAverage(record.vote_average)" allow-half disabled /> -->
                 <span>
                     {{ Number(record.vote_average).toFixed(1) }} ·
                     {{ record.vote_count }}人评价 ·
@@ -29,7 +29,6 @@ const { tmdbImagesPrefix } = useAppConfig();
 const props = defineProps({
     record: {
         type: Object,
-        default: () => ({})
     },
 })
 

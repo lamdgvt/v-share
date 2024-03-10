@@ -1,11 +1,11 @@
 <template>
     <div class="movie-card mx-3 cursor-pointer">
-        <NuxtImg :src="tmdbImagesPrefix + 'w500' + record[defaultKey.src]" />
-        <div class="text-lg mt-2">{{ record[defaultKey.title] }}</div>
+        <NuxtImg :src="record?.attributes?.posterImage?.original" />
+        <div class="text-sm mt-2">{{ record?.attributes?.titles?.en }}</div>
         <div class="align-middle">
-            <a-rate class="text-sm" :value="formatAverage(record[defaultKey.rate])" allow-half disabled />
+            <!-- <a-rate class="text-sm" :value="formatAverage(record[defaultKey.rate])" allow-half disabled /> -->
             <span class="text-sm ml-3 relative top-0.5">
-                {{ Number(record[defaultKey.rate]).toFixed(1) }}
+                {{ ((record?.attributes?.averageRating) / 10).toFixed(1) }}
             </span>
         </div>
     </div>
@@ -23,9 +23,11 @@ const props = defineProps({
     }
 })
 
+const record = computed(() => props.record || {})
+
 const defaultKey = computed(() => ({
     title: 'title',
-    src: 'poster_path',
+    src: 'attributes.coverImage.original',
     rate: 'vote_average',
     ...props.props,
 }))
@@ -64,4 +66,3 @@ const formatAverage = (rate: number) => Math.floor(rate / 2) + (((rate % 2) / 2)
     }
 }
 </style>
-

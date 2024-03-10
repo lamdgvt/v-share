@@ -1,93 +1,58 @@
-<template>
-    <!-- 海报 -->
-    <common-poster :record="record" />
-    <!-- 页签 -->
-    <VTabs class="custom-v-tabs" align="center" v-model:active="active">
-        <VTabPanel label="概述">
-            <!-- 信息 -->
-            <Summarize :record="record" />
-            <!-- 演员照片墙 -->
-            <common-actors :record="creditsList" />
-            <!-- 更多类似的 -->
-
-            <common-bar title="更多类似的" v-if="moreSimilarity.results.length">
-                <common-card v-for="(item) in moreSimilarity.results" :record="item" :key="item.id" />
-            </common-bar>
-        </VTabPanel>
-        <VTabPanel label="照片">
-            <Picture :backdrops="picture.backdrops" :logos="picture.logos" :posters="picture.posters" />
-        </VTabPanel>
-    </VTabs>
-</template>
-
 <script lang="ts" setup>
-import type { SimilarityConfigIO } from '~/types/details'
-import type { ActorsPictureIO } from '~/types/index'
 import Summarize from './components/Summarize.vue'
 import Picture from './components/Picture.vue'
 
 const route = useRoute()
-const active = ref('概述')
-const record = reactive({})
-const creditsList = ref<ActorsPictureIO[]>([])
-const picture = reactive({
-    backdrops: [],
-    logos: [],
-    posters: [],
-})
-
-
-// 更多类似信息
-const moreSimilarity = reactive<SimilarityConfigIO>({
-    page: 1,
-    totalResults: 0,
-    results: []
-})
 
 // 获取详情信息
-const getDetails = async () => {
-    const { id } = route.params
-    const { data, status } = await useFetch(`/api/details/movie/${id}`, { query: { language: 'zh-CN', lazy: true } })
-
-    if (status.value === 'success')
-        Object.assign(record, data.value)
-}
+const getDetails = async () => await useRequest(`/api/tmdb/details/movie/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
 
 // 获取图片
-const getPictures = async () => {
-    const { id } = route.params
-    const { data, status } = await useFetch(`/api/picture/movie/${id}`, { lazy: true })
+const getPictures = async () => await useRequest(`/api/tmdb/picture/movie/${route.params?.id || ''}`) || {}
 
-    if (status.value === 'success')
-        Object.assign(picture, data.value)
-}
+// 获取演员信息
+const getCredits = async () => await useRequest(`/api/tmdb/credits/movie/${route.params?.id || ''}`) || {}
 
-// 获取演员信息 
-const getCredits = async () => {
-    const { id } = route.params
-    const { data, status } = await useFetch(`/api/credits/movie/${id}`, { lazy: true })
+// 获取更多类似的电影
+const getSimilar = async () => await useRequest(`/api/tmdb/similar/movie/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
 
-    if (status.value === 'success')
-        creditsList.value = data.value?.cast || [];
-}
+// 初始化数据
+const details = await getDetails()
+const picture = await getPictures()
+const credits: any = await getCredits()
+const moreSimilarity: any = await getSimilar()
 
-// 获取更多类似的电影 
-const getSimilar = async () => {
-    const { id } = route.params
-    const { data, status } = await useFetch(`/api/similar/movie/${id}`, { query: { language: 'zh-CN' }, lazy: true })
-
-    if (status.value === 'success') {
-        const { total_results: totalResults, page, results } = data.value
-        Object.assign(moreSimilarity, {
-            totalResults, page, results
-        })
-    }
-}
-
-// 初始化
-// await Promise.allSettled([getDetails(), getPictures(), getCredits(), getSimilar()])
+// 数据源
+const record = computed<any>(() => details.data.value || {})
+const pictureConfig = computed<any>(() => picture.data.value || {})
+const backdrops = computed<any[]>(() => pictureConfig.value.backdrops || [])
+const logos = computed<any[]>(() => pictureConfig.value.logos || [])
+const posters = computed<any[]>(() => pictureConfig.value.posters || [])
+const cast = computed<any>(() => credits.data.value?.cast || [])
+const moreResult = computed<any>(() => moreSimilarity.data.value?.results || [])
 
 </script>
+
+<template>
+    <!-- 海报 -->
+    <common-tmdb-poster :record="record" />
+    <!-- 页签 -->
+    <VTabs class="custom-v-tabs" align="center" active="概述">
+        <VTabPanel label="概述">
+            <!-- 信息 -->
+            <Summarize :record="record" />
+            <!-- 演员照片墙 -->
+            <common-tmdb-actors :record="cast" />
+            <!-- 更多类似的 -->
+            <common-tmdb-bar title="更多类似的">
+                <common-tmdb-card v-for="(item) in moreResult" :record="item" :key="item.id" />
+            </common-tmdb-bar>
+        </VTabPanel>
+        <VTabPanel label="照片">
+            <Picture :backdrops="backdrops" :logos="logos" :posters="posters" />
+        </VTabPanel>
+    </VTabs>
+</template>
 
 <style lang="less" scoped>
 .custom-v-tabs {

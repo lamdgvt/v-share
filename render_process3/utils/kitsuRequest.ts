@@ -4,27 +4,26 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 // 创建 axios 实例
-const tmdbRequest: any = axios.create({
+const kitsuRequest: any = axios.create({
     // API 请求的默认前缀
-    baseURL: 'https://api.themoviedb.org/3',
+    baseURL: 'https://kitsu.io/api',
     timeout: import.meta.env.DEV ? 30000 : 30000, // 请求超时时间
     headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json;charset=utf-8',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NmJkMWJmMDczY2I2ZTFjNGM2OTgxNzY2ZTAyNWIyZCIsInN1YiI6IjY1OWFiOTFkY2E0ZjY3MDI1YTU3NzRhZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.h9Tvs1md5kbZ4uWjuY3LhlQvs58GdpdprMwfAQubp6A'
+        Accept: 'application/vnd.api+json',
+        'Content-Type': 'application/vnd.api+json',
     },
-    proxy: {
-        protocol: 'http',
-        host: '127.0.0.1',
-        port: 7890,
-    },
+    // proxy: {
+    //     protocol: 'http',
+    //     host: '127.0.0.1',
+    //     port: 7890,
+    // },
 });
 
 // 异常拦截处理器
 const errorHandler = (error: any) => Promise.reject(error)
 
 // request interceptor
-tmdbRequest.interceptors.request.use((config: any) => {
+kitsuRequest.interceptors.request.use((config: any) => {
     // get 请求方式统一加上 时间戳
     if (config.method === 'get') {
         config.params = {
@@ -37,7 +36,7 @@ tmdbRequest.interceptors.request.use((config: any) => {
 }, errorHandler);
 
 // response interceptor
-tmdbRequest.interceptors.response.use((response: any, config: any) => {
+kitsuRequest.interceptors.response.use((response: any, config: any) => {
     const { data } = response;
     if (data?.code === 403) {
     }
@@ -45,4 +44,4 @@ tmdbRequest.interceptors.response.use((response: any, config: any) => {
     return data;
 }, errorHandler);
 
-export default tmdbRequest;
+export default kitsuRequest;
