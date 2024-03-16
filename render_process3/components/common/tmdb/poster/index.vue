@@ -32,7 +32,7 @@ const props = defineProps({
     },
 })
 
-const record = computed(() => props.record || {})
+const record = computed(() => props.record || { title: '', overview: '', })
 
 // 发布日期
 const releaseDate = computed<string>(() => String(record.value.release_date)?.split('-')?.[0])

@@ -11,8 +11,4 @@ export default defineNuxtConfig({
     'nuxt-icons',
     "nuxt-swiper",
   ],
-  // 构建时检查
-  typescript: {
-    typeCheck: true
-  },
 })

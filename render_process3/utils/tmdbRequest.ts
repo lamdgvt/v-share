@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
 const tmdbRequest: any = axios.create({
     // API 请求的默认前缀
     baseURL: 'https://api.themoviedb.org/3',
-    timeout: import.meta.env.DEV ? 30000 : 30000, // 请求超时时间
+    timeout: 30000, // 请求超时时间
     headers: {
         accept: 'application/json',
         'Content-Type': 'application/json;charset=utf-8',

@@ -23,4 +23,13 @@ useHead({
 .body {
   font-weight: 500;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none
+}
 </style>

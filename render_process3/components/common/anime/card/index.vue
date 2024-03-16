@@ -1,6 +1,6 @@
 <template>
     <div class="movie-card mx-3 cursor-pointer">
-        <NuxtImg :src="record?.attributes?.posterImage?.original" />
+        <!-- <NuxtImg :src="record?.attributes?.posterImage?.original" /> -->
         <div class="text-sm mt-2">{{ record?.attributes?.titles?.en }}</div>
         <div class="align-middle">
             <!-- <a-rate class="text-sm" :value="formatAverage(record[defaultKey.rate])" allow-half disabled /> -->

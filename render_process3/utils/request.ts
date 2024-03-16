@@ -4,9 +4,9 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 // 创建 axios 实例
-const kitsuRequest: any = axios.create({
+const request: any = axios.create({
     // API 请求的默认前缀
-    baseURL: 'https://kitsu.io/api',
+    baseURL: 'http://localhost:3330',
     timeout: 30000, // 请求超时时间
     headers: {
         Accept: 'application/vnd.api+json',
@@ -23,7 +23,7 @@ const kitsuRequest: any = axios.create({
 const errorHandler = (error: any) => Promise.reject(error)
 
 // request interceptor
-kitsuRequest.interceptors.request.use((config: any) => {
+request.interceptors.request.use((config: any) => {
     // get 请求方式统一加上 时间戳
     if (config.method === 'get') {
         config.params = {
@@ -36,7 +36,7 @@ kitsuRequest.interceptors.request.use((config: any) => {
 }, errorHandler);
 
 // response interceptor
-kitsuRequest.interceptors.response.use((response: any, config: any) => {
+request.interceptors.response.use((response: any, config: any) => {
     const { data } = response;
     if (data?.code === 403) {
     }
@@ -44,4 +44,4 @@ kitsuRequest.interceptors.response.use((response: any, config: any) => {
     return data;
 }, errorHandler);
 
-export default kitsuRequest;
+export default request;
