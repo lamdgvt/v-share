@@ -1,17 +1,18 @@
 <template>
     <div class="movie-card mx-3 cursor-pointer">
-        <!-- <NuxtImg :src="record?.attributes?.posterImage?.original" /> -->
-        <div class="text-sm mt-2">{{ record?.attributes?.titles?.en }}</div>
+        <NuxtImg :src="`${tmdbImagesPrefix}w500${record?.posterPath}`" />
+        <div class="text-sm mt-2">{{ record?.alias }}</div>
         <div class="align-middle">
             <!-- <a-rate class="text-sm" :value="formatAverage(record[defaultKey.rate])" allow-half disabled /> -->
             <span class="text-sm ml-3 relative top-0.5">
-                {{ ((record?.attributes?.averageRating) / 10).toFixed(1) }}
+                {{ ((record?.voteAverage) / 10).toFixed(1) }}
             </span>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
+
 const props = defineProps({
     record: {
         type: Object,
@@ -24,13 +25,6 @@ const props = defineProps({
 })
 
 const record = computed(() => props.record || {})
-
-const defaultKey = computed(() => ({
-    title: 'title',
-    src: 'attributes.coverImage.original',
-    rate: 'vote_average',
-    ...props.props,
-}))
 
 // 图片前缀
 

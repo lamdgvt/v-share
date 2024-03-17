@@ -15,6 +15,8 @@ const props = defineProps({
     },
 })
 
+const record = computed(() => props.record)
+
 </script>
 
 <style lang="less" scoped></style>

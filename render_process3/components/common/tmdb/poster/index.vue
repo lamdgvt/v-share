@@ -4,8 +4,8 @@
             <div class="banner-content-info-title">
                 {{ record.title }}
             </div>
-            <div class="banner-content-info-rate">
-                <!-- <a-rate class="text-sm" :value="formatAverage(record.vote_average)" allow-half disabled /> -->
+            <div class="banner-content-info-rate flex">
+                <common-rate class="translate-y-1.5" :value="formatAverage(record.vote_average)" />
                 <span>
                     {{ Number(record.vote_average).toFixed(1) }} ·
                     {{ record.vote_count }}人评价 ·

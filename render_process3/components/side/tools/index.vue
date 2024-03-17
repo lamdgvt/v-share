@@ -10,7 +10,7 @@
         </span>
         <span class="icon">
             <nuxt-link to="/animeHome">
-                <nuxt-icon name="sideTools/videoLibrary" />
+                <nuxt-icon name="sideTools/video-library" />
             </nuxt-link>
         </span>
         <span class="icon">
@@ -38,15 +38,13 @@
             font-size: 2em;
         }
     }
-}
-</style>
 
-<style>
-.nuxt-icon.nuxt-icon--stroke,
-.nuxt-icon.nuxt-icon--stroke *,
-.nuxt-icon.nuxt-icon--fill,
-.nuxt-icon.nuxt-icon--fill * {
-    stroke: #fff !important;
-    fill: #000 !important;
+    :deep(.nuxt-icon.nuxt-icon--stroke),
+    :deep(.nuxt-icon.nuxt-icon--stroke *),
+    :deep(.nuxt-icon.nuxt-icon--fill),
+    :deep(.nuxt-icon.nuxt-icon--fill *) {
+        stroke: #fff !important;
+        fill: #000 !important;
+    }
 }
 </style>
