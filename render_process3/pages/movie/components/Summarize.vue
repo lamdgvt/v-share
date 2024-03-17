@@ -1,7 +1,7 @@
 <template>
     <div class="summarize-main p-8 flex my-0 m-auto">
         <div class="summarize-main-image mr-8">
-            <NuxtImg :src="`${tmdbImagesPrefix}w500${record.poster_path}`" alt="" />
+            <NuxtImg :src="`${tmdbImagesPrefix}w500${record.poster_path}`" />
         </div>
         <div class="summarize-main-des flex-1">
             <div class="text-3xl text-white">剧情</div>

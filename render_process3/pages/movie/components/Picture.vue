@@ -9,8 +9,8 @@
         </div>
         <VImageGroup class="text-center" preview :show-all="true">
             <VImage class="m-8" v-for="team in backdrops" :preview="true"
-                :preview-src="`${tmdbImagesPrefix}w1280${team.file_path}`" :skeleton="true" :lazy="true"
-                :key="team.file_path" :src="`${tmdbImagesPrefix}w500${team.file_path}`" />
+                :preview-src="`${tmdbImagesPrefix}w1280${team.file_path}`" :skeleton="true" :key="team.file_path"
+                :src="`${tmdbImagesPrefix}w500${team.file_path}`" />
         </VImageGroup>
 
         <!-- 海报 -->

@@ -1,11 +1,11 @@
 <template>
     <div class="movie-card mx-3 cursor-pointer">
         <NuxtImg :src="`${tmdbImagesPrefix}w500${record?.posterPath}`" />
-        <div class="text-sm mt-2">{{ record?.alias }}</div>
-        <div class="align-middle">
-            <!-- <a-rate class="text-sm" :value="formatAverage(record[defaultKey.rate])" allow-half disabled /> -->
-            <span class="text-sm ml-3 relative top-0.5">
-                {{ ((record?.voteAverage) / 10).toFixed(1) }}
+        <div class="text-sm mt-2 truncate">{{ record?.alias }}</div>
+        <div class="align-middle flex mt-1">
+            <common-rate :value="Number((record?.voteAverage / 2).toFixed(1)) || 0" />
+            <span class="text-sm ml-3 relative">
+                {{ Number(record?.voteAverage).toFixed(1) }}
             </span>
         </div>
     </div>
@@ -29,14 +29,11 @@ const record = computed(() => props.record || {})
 // 图片前缀
 
 const { tmdbImagesPrefix } = useAppConfig();
-
-
-const formatAverage = (rate: number) => Math.floor(rate / 2) + (((rate % 2) / 2) >= 0.25 ? 0.5 : 0);
-
 </script>
 
 <style lang="less" scoped>
 .movie-card {
+    width: 236px;
 
     :deep(img) {
         width: 236px;

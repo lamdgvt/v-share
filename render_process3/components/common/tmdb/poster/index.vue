@@ -5,10 +5,10 @@
                 {{ record.title }}
             </div>
             <div class="banner-content-info-rate flex">
-                <common-rate class="translate-y-1.5" :value="formatAverage(record.vote_average)" />
+                <common-rate class="translate-y-1.5" :value="formatAverage(record?.vote_average || 0)" />
                 <span>
-                    {{ Number(record.vote_average).toFixed(1) }} ·
-                    {{ record.vote_count }}人评价 ·
+                    {{ Number(record?.vote_average).toFixed(1) }} ·
+                    {{ record?.vote_count }}人评价 ·
                     {{ releaseDate }}
                 </span>
             </div>

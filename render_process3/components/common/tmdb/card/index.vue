@@ -1,7 +1,7 @@
 <template>
     <div class="movie-card mx-3 cursor-pointer">
         <NuxtImg :src="tmdbImagesPrefix + 'w500' + record[defaultKey.src]" />
-        <div class="text-lg mt-2">{{ record[defaultKey.title] }}</div>
+        <div class="text-lg mt-2 truncate">{{ record[defaultKey.title] }}</div>
         <div class="mt-1 flex">
             <common-rate :value="formatAverage(record[defaultKey.rate])" />
             <span class="text-sm ml-3 relative">
@@ -41,6 +41,7 @@ const formatAverage = (rate: number) => Math.floor(rate / 2) + (((rate % 2) / 2)
 
 <style lang="less" scoped>
 .movie-card {
+    width: 236px;
 
     :deep(img) {
         width: 236px;

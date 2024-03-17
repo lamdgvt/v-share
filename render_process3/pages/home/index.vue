@@ -16,8 +16,11 @@ const getNowPlayData = async () => await useRequest('/api/tmdb/nowPlay/movie', {
 const getUpcomingMovieData = async () => await useRequest('/api/tmdb/upcoming/movie', { query: { page: 1, language: 'zh-CN' } })
 
 // 跳转详情
-const skipDetail = (record: MovieResultIO) =>
+const skipDetail = (record: MovieResultIO) => {
+    console.log(record)
+
     router.push({ path: `/movie/${record.id}` })
+}
 
 // 初始化
 const movieResult: any = await getMovieData()
