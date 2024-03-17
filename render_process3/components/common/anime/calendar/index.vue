@@ -13,6 +13,10 @@ const props = defineProps({
         type: Object,
         default: () => ({})
     },
+    weekOrder: {
+        type: Boolean,
+        default: false
+    },
 })
 
 const record = computed(() => props.record)

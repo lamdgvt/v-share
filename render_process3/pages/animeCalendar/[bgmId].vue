@@ -24,7 +24,7 @@ const animeEvent = (team: any) => {
     }
 }
 
-// 根据季度获取动漫 page
+// 根据季度获取动漫
 const getScheduleAnime = async () => await useRequest('/api/share/anime/animeByBgmId', { method: 'post', body: { bgmId: route.params.bgmId } }) || {};
 
 const scheduleAnimeSync: any = await getScheduleAnime()
