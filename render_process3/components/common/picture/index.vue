@@ -23,8 +23,8 @@
 
         <VImageGroup class="text-center" preview :show-all="true">
             <VImage class="m-8" v-for="team in posters" :preview="true"
-                :preview-src="`${tmdbImagesPrefix}w1280${team.file_path}`" :skeleton="true" :lazy="true"
-                :key="team.file_path" :src="`${tmdbImagesPrefix}w185${team.file_path}`" />
+                :preview-src="`${tmdbImagesPrefix}w1280${team.file_path}`" :skeleton="true" :key="team.file_path"
+                :src="`${tmdbImagesPrefix}w185${team.file_path}`" />
         </VImageGroup>
 
         <!-- Logos -->
@@ -36,8 +36,8 @@
         </div>
         <VImageGroup class="text-center" preview :show-all="true">
             <VImage class="m-8" v-for="team in logos" :preview="true"
-                :preview-src="`${tmdbImagesPrefix}w185${team.file_path}`" :skeleton="true" :lazy="true"
-                :key="team.file_path" :src="`${tmdbImagesPrefix}w185${team.file_path}`" />
+                :preview-src="`${tmdbImagesPrefix}w185${team.file_path}`" :skeleton="true" :key="team.file_path"
+                :src="`${tmdbImagesPrefix}w185${team.file_path}`" />
         </VImageGroup>
 
     </div>

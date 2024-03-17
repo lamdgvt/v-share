@@ -2,16 +2,16 @@
 const route = useRoute()
 
 // 获取详情信息
-const getDetails = async () => await useRequest(`/api/tmdb/details/movie/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
+const getDetails = async () => await useRequest(`/api/tmdb/details/tv/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
 
 // 获取图片
-const getPictures = async () => await useRequest(`/api/tmdb/picture/movie/${route.params?.id || ''}`) || {}
+const getPictures = async () => await useRequest(`/api/tmdb/picture/tv/${route.params?.id || ''}`) || {}
 
 // 获取演员信息
-const getCredits = async () => await useRequest(`/api/tmdb/credits/movie/${route.params?.id || ''}`) || {}
+const getCredits = async () => await useRequest(`/api/tmdb/credits/tv/${route.params?.id || ''}`) || {}
 
 // 获取更多类似的电影
-const getSimilar = async () => await useRequest(`/api/tmdb/similar/movie/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
+const getSimilar = async () => await useRequest(`/api/tmdb/similar/tv/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
 
 // 初始化数据
 const details = await getDetails()
