@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 const route = useRoute()
+const router = useRouter()
 
 // 获取详情信息
 const getDetails = async () => await useRequest(`/api/tmdb/details/movie/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
@@ -12,6 +13,11 @@ const getCredits = async () => await useRequest(`/api/tmdb/credits/movie/${route
 
 // 获取更多类似的电影
 const getSimilar = async () => await useRequest(`/api/tmdb/similar/movie/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
+
+// 跳转 Event
+const skipEvent = ({ id }: any) => router.push({
+    path: `/movie/${id}`,
+})
 
 // 初始化数据
 const details = await getDetails()
@@ -42,7 +48,8 @@ const moreResult = computed<any>(() => moreSimilarity.data.value?.results || [])
             <common-tmdb-actors :record="cast" />
             <!-- 更多类似的 -->
             <common-tmdb-bar title="更多类似的">
-                <common-tmdb-card v-for="(item) in moreResult" :record="item" :key="item.id" />
+                <common-tmdb-card v-for="(item) in moreResult" :record="item" :key="item.id"
+                    @click="() => skipEvent(item)" />
             </common-tmdb-bar>
         </VTabPanel>
         <VTabPanel label="照片">

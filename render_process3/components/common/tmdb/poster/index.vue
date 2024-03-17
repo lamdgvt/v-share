@@ -2,7 +2,7 @@
     <div class="banner-content flex">
         <div class="banner-content-info">
             <div class="banner-content-info-title">
-                {{ record.title }}
+                {{ record.title || record.name }}
             </div>
             <div class="banner-content-info-rate flex">
                 <common-rate class="translate-y-1.5" :value="formatAverage(record?.vote_average || 0)" />

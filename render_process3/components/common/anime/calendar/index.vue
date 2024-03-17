@@ -3,8 +3,6 @@
     <common-anime-bar v-for="(week, key) in record" :key="key" :title="key">
         <common-anime-card v-for="(team) in week" :record="team" :key="team.id" @click="() => animeEvent(team)" />
     </common-anime-bar>
-
-    <!-- 星期二 -->
 </template>
 
 <script lang="ts" setup>
