@@ -33,6 +33,27 @@ const skipEvent = ({ id }: any) => router.push({
     path: `/tv/${id}`,
 })
 
+// 海报跳转
+const posterClickEvent = (team: any) => {
+    const { tmdbId, mediaType } = team;
+
+    // 根据两种类型 movie tv 跳转不同的详情
+    switch (mediaType) {
+        case 'movie': {
+            router.push({
+                path: `/movie/${tmdbId}`,
+            })
+            break;
+        }
+        case 'tv': {
+            router.push({
+                path: `/tv/${tmdbId}`,
+            })
+            break;
+        }
+    }
+}
+
 
 // 初始化数据
 const details = await getDetails()
@@ -53,7 +74,7 @@ const moreResult = computed<any>(() => moreSimilarity.data.value?.results || [])
 
 <template>
     <!-- 海报 -->
-    <common-poster :record="record" :attribute="bannerAttribute" />
+    <common-poster :record="record" :attribute="bannerAttribute" @posterClickEvent="posterClickEvent" />
     <!-- 页签 -->
     <VTabs class="custom-v-tabs" align="center" active="概述">
         <VTabPanel label="概述">
