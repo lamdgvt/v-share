@@ -27,7 +27,24 @@ const autoplay = {
 
 const recordList = computed(() => props.recordList || [])
 
-const posterClickEvent = (team: any) =>
-    router.push(`/movie/${team.id}`)
+const posterClickEvent = (team: any) => {
+    const { tmdbId, mediaType } = team;
+
+    // 根据两种类型 movie tv 跳转不同的详情
+    switch (mediaType) {
+        case 'movie': {
+            router.push({
+                path: `/movie/${tmdbId}`,
+            })
+            break;
+        }
+        case 'tv': {
+            router.push({
+                path: `/tv/${tmdbId}`,
+            })
+            break;
+        }
+    }
+}
 
 </script>
