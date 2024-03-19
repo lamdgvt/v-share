@@ -2,6 +2,18 @@
 const route = useRoute()
 const router = useRouter()
 
+const bannerAttribute = reactive({
+    backdropPath: 'backdrop_path',
+    voteAverage: 'vote_average',
+    voteCount: 'vote_count'
+})
+
+const cardAttribute = reactive({
+    voteCount: 'vote_count',
+    voteAverage: 'vote_average',
+    posterPath: 'poster_path',
+})
+
 // 获取详情信息
 const getDetails = async () => await useRequest(`/api/tmdb/details/tv/${route.params?.id || ''}`, { query: { language: 'zh-CN' } }) || {}
 
@@ -39,19 +51,19 @@ const moreResult = computed<any>(() => moreSimilarity.data.value?.results || [])
 
 <template>
     <!-- 海报 -->
-    <common-tmdb-poster :record="record" />
+    <common-poster :record="record" :attribute="bannerAttribute" />
     <!-- 页签 -->
     <VTabs class="custom-v-tabs" align="center" active="概述">
         <VTabPanel label="概述">
             <!-- 信息 -->
             <common-summarize :record="record" />
             <!-- 演员照片墙 -->
-            <common-tmdb-actors :record="cast" />
+            <common-actors :record="cast" />
             <!-- 更多类似的 -->
-            <common-tmdb-bar title="更多类似的">
-                <common-tmdb-card v-for="(item) in moreResult" :record="item" :key="item.id" :props="{ title: 'name' }"
-                    @click="() => skipEvent(item)" />
-            </common-tmdb-bar>
+            <common-bar title="更多类似的">
+                <common-card v-for="(item) in moreResult" :record="item" :key="item.id" :props="{ title: 'name' }"
+                    @click="() => skipEvent(item)" :attribute="cardAttribute" />
+            </common-bar>
         </VTabPanel>
         <VTabPanel label="照片">
             <common-picture :backdrops="backdrops" :logos="logos" :posters="posters" />

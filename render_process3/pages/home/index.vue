@@ -2,6 +2,17 @@
 import type { MovieResultIO } from '~/types/discover'
 
 const router = useRouter();
+const bannerAttribute = reactive({
+    backdropPath: 'backdrop_path',
+    voteAverage: 'vote_average',
+    voteCount: 'vote_count'
+})
+
+const cardAttribute = reactive({
+    voteCount: 'vote_count',
+    voteAverage: 'vote_average',
+    posterPath: 'poster_path',
+})
 
 // 获取热门电影数据
 const getMovieData = async () => await useRequest('/api/tmdb/discover/movie', { query: { page: 1, language: 'zh-CN' } })
@@ -35,29 +46,31 @@ const upcomingMovieList = computed(() => upcomingMovieResult.data.value?.results
 
 <template>
     <!-- Banner 轮播图 -->
-    <common-tmdb-banner :recordList="movieList" />
+    <common-banner :recordList="movieList" :attribute="bannerAttribute" />
 
     <!-- 热门电影 -->
-    <common-tmdb-bar title="热门电影">
-        <common-tmdb-card v-for="(item) in movieList" :record="item" :key="item.id" @click="() => skipDetail(item)" />
-    </common-tmdb-bar>
+    <common-bar title="热门电影">
+        <common-card v-for="(item) in movieList" :record="item" :key="item.id" @click="() => skipDetail(item)"
+            :attribute="cardAttribute" />
+    </common-bar>
 
     <!-- 高分电影 -->
-    <common-tmdb-bar title="高分电影">
-        <common-tmdb-card v-for="(item) in highMarkList" :record="item" :key="item.id"
-            @click="() => skipDetail(item)" />
-    </common-tmdb-bar>
+    <common-bar title="高分电影">
+        <common-card v-for="(item) in highMarkList" :record="item" :key="item.id" @click="() => skipDetail(item)"
+            :attribute="cardAttribute" />
+    </common-bar>
 
     <!-- 正在上映的电影 -->
-    <common-tmdb-bar title="正在上映">
-        <common-tmdb-card v-for="(item) in nowPlayList" :record="item" :key="item.id" @click="() => skipDetail(item)" />
-    </common-tmdb-bar>
+    <common-bar title="正在上映">
+        <common-card v-for="(item) in nowPlayList" :record="item" :key="item.id" @click="() => skipDetail(item)"
+            :attribute="cardAttribute" />
+    </common-bar>
 
     <!-- 即将上映的电影 -->
-    <common-tmdb-bar title="即将上映的电影">
-        <common-tmdb-card v-for="(item) in upcomingMovieList" :record="item" :key="item.id"
-            @click="() => skipDetail(item)" />
-    </common-tmdb-bar>
+    <common-bar title="即将上映的电影">
+        <common-card v-for="(item) in upcomingMovieList" :record="item" :key="item.id" @click="() => skipDetail(item)"
+            :attribute="cardAttribute" />
+    </common-bar>
 </template>
 
 <style lang="less" scoped></style>

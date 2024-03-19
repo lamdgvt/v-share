@@ -1,13 +1,15 @@
 <template>
-    <Swiper :modules="[Autoplay, Pagination]" :slides-per-view="1" :loop="true" effect="cards" :autoplay="autoplay">
+    <Swiper :modules="[Autoplay, Pagination]" :slides-per-view="1" :loop="true" effect="cards" :autoplay="false">
         <SwiperSlide v-for="(team) in recordList" :key="team.id" @click="posterClickEvent(team)">
-            <common-tmdb-poster :record="team" />
+            <common-poster :record="team" v-bind="attrs" />
         </SwiperSlide>
     </Swiper>
 </template>
 
 <script lang="ts" setup>
 import { Pagination, Autoplay } from 'swiper/modules';
+
+const attrs = useAttrs()
 
 const router = useRouter();
 

@@ -1,8 +1,11 @@
 <template>
-    <!-- 星期一 -->
-    <common-anime-bar v-for="(week, key) in record" :key="key" :title="key">
-        <common-anime-card v-for="(team) in week" :record="team" :key="team.id" @click="() => animeEvent(team)" />
-    </common-anime-bar>
+    <!-- Banner 轮播图 -->
+    <common-banner :recordList="record[today] || []" :attribute="{ title: 'name' }" />
+
+    <common-bar v-for="key in order" :key="key" :title="key">
+        <common-card v-for="(team) in record[key]" :record="team" :key="team.id" @click="() => animeEvent(team)"
+            :attribute="{ title: 'alias' }" />
+    </common-bar>
 </template>
 
 <script lang="ts" setup>
@@ -17,6 +20,22 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
+})
+
+const today = computed(() => ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][new Date().getDay()])
+
+// 排序
+const order = computed(() => {
+    let defaultOrder = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+    if (props.weekOrder) {
+        const index = new Date().getDay()
+        const spliceArr = defaultOrder.splice(index, defaultOrder.length)
+
+        defaultOrder = [...spliceArr, ...defaultOrder]
+    }
+
+    return defaultOrder
 })
 
 const record = computed(() => props.record)

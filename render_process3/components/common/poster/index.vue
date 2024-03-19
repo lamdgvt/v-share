@@ -2,23 +2,26 @@
     <div class="banner-content flex">
         <div class="banner-content-info">
             <div class="banner-content-info-title">
-                {{ record.title || record.name }}
+                {{ record[attribute.title] }}
             </div>
-            <div class="banner-content-info-rate flex">
-                <common-rate class="translate-y-1.5" :value="formatAverage(record?.vote_average || 0)" />
+            <div class="banner-content-info-rate flex items-center translate-y-2">
+                <common-rate :value="formatAverage(record?.[attribute.voteAverage] || 0)" />
                 <span>
-                    {{ Number(record?.vote_average).toFixed(1) }} ·
-                    {{ record?.vote_count }}人评价 ·
-                    {{ releaseDate }}
+                    {{ Number(record?.[attribute.voteAverage]).toFixed(1) || 0 }}
+                    <span v-if="record?.[attribute.voteCount]">
+                        ·
+                        {{ record?.[attribute.voteCount] || 0 }} 人评价
+                    </span>
+                    <span v-if="releaseDate">· {{ releaseDate || '' }}</span>
                 </span>
             </div>
             <div class="banner-content-info-overview">
-                {{ record.overview }}
+                {{ record?.[attribute.overview] }}
             </div>
         </div>
         <div class="banner-content-image">
             <div class="banner-content-image-modal" />
-            <NuxtImg class="h-full" :src="`${tmdbImagesPrefix}w1280${record.backdrop_path}`" />
+            <NuxtImg class="h-full" :src="`${tmdbImagesPrefix}w1280${record[attribute.backdropPath]}`" />
         </div>
     </div>
 </template>
@@ -30,12 +33,25 @@ const props = defineProps({
     record: {
         type: Object,
     },
+    attribute: {
+        type: Object,
+        default: () => ({})
+    },
 })
 
-const record = computed(() => props.record || { title: '', overview: '', })
+const record = computed(() => props.record || {})
+
+const attribute = computed(() => ({
+    title: 'title',
+    overview: 'overview',
+    voteCount: 'voteCount',
+    voteAverage: 'voteAverage',
+    backdropPath: 'backdropPath',
+    ...props.attribute
+}))
 
 // 发布日期
-const releaseDate = computed<string>(() => String(record.value.release_date)?.split('-')?.[0])
+const releaseDate = computed<string>(() => record.value.release_date ? String(record.value.release_date)?.split('-')?.[0] : '')
 
 // 格式化评分
 const formatAverage = (rate: number) => Math.floor(rate / 2) + (((rate % 2) / 2) >= 0.25 ? 0.5 : 0);
@@ -58,10 +74,8 @@ const formatAverage = (rate: number) => Math.floor(rate / 2) + (((rate % 2) / 2)
         overflow: visible;
 
         .banner-content-info-rate {
-            span {
+            >span {
                 margin: 0 1rem;
-                position: relative;
-                top: 3px;
                 color: rgba(255, 255, 255, 0.6);
             }
 

@@ -1,18 +1,17 @@
 <template>
     <div class="movie-card mx-3 cursor-pointer">
-        <NuxtImg :src="`${tmdbImagesPrefix}w500${record?.posterPath}`" />
-        <div class="text-sm mt-2 truncate">{{ record?.alias }}</div>
+        <NuxtImg :src="`${tmdbImagesPrefix}w500${record?.[attribute.posterPath]}`" />
+        <div class="text-sm mt-2 truncate">{{ record?.[attribute.title] }}</div>
         <div class="align-middle flex mt-1">
-            <common-rate :value="Number((record?.voteAverage / 2).toFixed(1)) || 0" />
+            <common-rate :value="Number((record?.[attribute.voteAverage] / 2).toFixed(1)) || 0" />
             <span class="text-sm ml-3 relative">
-                {{ Number(record?.voteAverage).toFixed(1) }}
+                {{ Number(record?.[attribute.voteAverage]).toFixed(1) }}
             </span>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-
 const props = defineProps({
     record: {
         type: Object,
@@ -21,13 +20,23 @@ const props = defineProps({
     props: {
         type: Object,
         default: () => ({})
+    },
+    attribute: {
+        type: Object,
+        default: () => ({})
     }
 })
 
 const record = computed(() => props.record || {})
 
-// 图片前缀
+const attribute = computed(() => ({
+    title: 'title',
+    voteAverage: 'voteAverage',
+    posterPath: 'posterPath',
+    ...props.attribute
+}))
 
+// 图片前缀
 const { tmdbImagesPrefix } = useAppConfig();
 </script>
 
