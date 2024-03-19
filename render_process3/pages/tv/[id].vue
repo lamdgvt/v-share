@@ -3,12 +3,14 @@ const route = useRoute()
 const router = useRouter()
 
 const bannerAttribute = reactive({
+    title: 'name',
     backdropPath: 'backdrop_path',
     voteAverage: 'vote_average',
     voteCount: 'vote_count'
 })
 
 const cardAttribute = reactive({
+    title: 'name',
     voteCount: 'vote_count',
     voteAverage: 'vote_average',
     posterPath: 'poster_path',
@@ -61,8 +63,8 @@ const moreResult = computed<any>(() => moreSimilarity.data.value?.results || [])
             <common-actors :record="cast" />
             <!-- 更多类似的 -->
             <common-bar title="更多类似的">
-                <common-card v-for="(item) in moreResult" :record="item" :key="item.id" :props="{ title: 'name' }"
-                    @click="() => skipEvent(item)" :attribute="cardAttribute" />
+                <common-card v-for="(item) in moreResult" :record="item" :key="item.id" @click="() => skipEvent(item)"
+                    :attribute="cardAttribute" />
             </common-bar>
         </VTabPanel>
         <VTabPanel label="照片">

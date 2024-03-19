@@ -1,5 +1,5 @@
 <template>
-    <Swiper :modules="[Autoplay, Pagination]" :slides-per-view="1" :loop="true" effect="cards" :autoplay="false">
+    <Swiper :modules="[Autoplay, Pagination]" :slides-per-view="1" :loop="true" effect="cards" :autoplay="autoplay">
         <SwiperSlide v-for="(team) in recordList" :key="team.id" @click="posterClickEvent(team)">
             <common-poster :record="team" v-bind="attrs" />
         </SwiperSlide>
