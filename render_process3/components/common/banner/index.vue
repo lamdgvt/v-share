@@ -27,8 +27,7 @@ const autoplay = {
 
 const recordList = computed(() => props.recordList || [])
 
-const posterClickEvent = (team: any) => {
+const posterClickEvent = (team: any) =>
     emits('posterClickEvent', team)
-}
 
 </script>

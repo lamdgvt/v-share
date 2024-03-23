@@ -18,7 +18,6 @@ const getToken = async () => {
 
 export default async function useRequest<T>(url: string, config: any = {}) {
     const defaultConfig = {
-        lazy: true,
         onRequest({ request, options }: any) {
 
             // kitsu token 设置

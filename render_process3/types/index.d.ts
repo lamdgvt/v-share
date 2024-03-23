@@ -44,3 +44,4 @@ export interface ActorsPictureIO {
     cast_id: number,
     character: string, // 字符
 }
+

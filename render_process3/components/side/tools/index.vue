@@ -9,15 +9,17 @@
             </nuxt-link>
         </span>
         <span class="icon">
-            <!-- <nuxt-link to="/animeHome">
+            <nuxt-link to="/anime">
                 <nuxt-icon name="sideTools/video-library" />
-            </nuxt-link> -->
+            </nuxt-link>
         </span>
         <span class="icon">
             <nuxt-icon name="sideTools/tv" />
         </span>
         <span class="icon">
-            <nuxt-icon name="sideTools/search" />
+            <nuxt-link to="/search">
+                <nuxt-icon name="sideTools/search" />
+            </nuxt-link>
         </span>
     </div>
 </template>

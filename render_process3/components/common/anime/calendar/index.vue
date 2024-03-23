@@ -1,6 +1,6 @@
 <template>
     <!-- Banner 轮播图 -->
-    <common-banner :recordList="record[today] || []" :attribute="{ title: 'name' }" />
+    <common-banner :recordList="record[today] || []" :attribute="{ title: 'name' }" @posterClickEvent="animeEvent" />
 
     <common-bar v-for="key in order" :key="key" :title="key">
         <common-card v-for="(team) in record[key]" :record="team" :key="team.id" @click="() => animeEvent(team)"

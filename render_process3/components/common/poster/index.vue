@@ -29,6 +29,8 @@
 <script lang="ts" setup>
 const { tmdbImagesPrefix } = useAppConfig();
 
+const emits = defineEmits(["skipDetails"])
+
 const props = defineProps({
     record: {
         type: Object,

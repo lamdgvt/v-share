@@ -11,5 +11,6 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'nuxt-icons',
     "nuxt-swiper",
+    "nuxt-headlessui"
   ],
 })

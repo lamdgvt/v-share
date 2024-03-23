@@ -41,12 +41,20 @@
                     </VRow>
                 </VColumn>
             </VRow>
+
+            <VButton @click="openResourceSlideover">
+                资源搜索
+            </VButton>
         </div>
+
+        <common-bit-torrent-slideover ref="commonBitTorrentSlideoverRefs" />
     </div>
 </template>
 
 <script lang="ts" setup>
 const { tmdbImagesPrefix } = useAppConfig();
+
+const commonBitTorrentSlideoverRefs = ref();
 
 const props = defineProps({
     record: {
@@ -54,6 +62,10 @@ const props = defineProps({
         default: () => ({})
     }
 })
+
+// 打开资源搜索
+const openResourceSlideover = () =>
+    commonBitTorrentSlideoverRefs.value?.open()
 
 // 制片
 const productionCompanies = computed(() => props.record?.production_companies?.map((item: any) => item.name).join(',') || '-')
