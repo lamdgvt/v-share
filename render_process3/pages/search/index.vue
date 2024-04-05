@@ -7,7 +7,7 @@
 
             <!-- 内容结果 -->
             <ClientOnly v-else>
-                <div class="grid auto-cols-auto">
+                <div class="result-content grid auto-cols-auto">
                     <common-card v-for="(item) in grid.results" :record="item" :key="item.id"
                         @click="() => skipEvent(item)" :attribute="cardAttribute" />
                 </div>
@@ -23,6 +23,7 @@ import { debounce } from 'lodash'
 const router = useRouter()
 
 const cardAttribute = reactive({
+    title: ['name', 'title'],
     voteCount: 'vote_count',
     voteAverage: 'vote_average',
     posterPath: 'poster_path',
@@ -41,7 +42,7 @@ const searchEvent = debounce(async (isRefresh) => {
     isRefresh && (grid.results = [])
 
     const data = await $fetch('/api/tmdb/search/multi', {
-        query: { query: search.value, page: page.value },
+        query: { query: search.value, page: page.value, language: 'zh-CN' },
         lazy: true,
         server: false
     })
@@ -56,19 +57,19 @@ const searchEvent = debounce(async (isRefresh) => {
 
 // 跳转 Event
 const skipEvent = (team: any) => {
-    const { tmdbId, mediaType } = team;
+    const { id, media_type: mediaType } = team;
 
     // 根据两种类型 movie tv 跳转不同的详情
     switch (mediaType) {
         case 'movie': {
             router.push({
-                path: `/movie/${tmdbId}`,
+                path: `/movie/${id}`,
             })
             break;
         }
         case 'tv': {
             router.push({
-                path: `/tv/${tmdbId}`,
+                path: `/tv/${id}`,
             })
             break;
         }
@@ -92,5 +93,11 @@ watch(() => page.value, () => searchEvent(true))
         color: rgb(156, 163, 175);
         --tw-ring-opacity: 0;
     }
+}
+
+.result-content {
+    grid-template-columns: repeat(auto-fill, 245px);
+    grid-row-gap: 30px;
+    grid-column-gap: 10px;
 }
 </style>

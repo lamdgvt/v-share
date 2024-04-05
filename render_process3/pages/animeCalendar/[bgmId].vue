@@ -24,6 +24,10 @@ const animeEvent = (team: any) => {
     }
 }
 
+const cardAttribute = reactive({
+    title: 'name',
+})
+
 // 根据季度获取动漫
 const getScheduleAnime = async () => await useRequest('/api/share/anime/animeByBgmId', { method: 'post', body: { bgmId: route.params.bgmId } }) || {};
 
@@ -35,6 +39,7 @@ const anime = computed<any>(() => scheduleAnimeSync.data.value?.data || {})
 
 <template>
     <common-bar v-for="(week, key) in anime" :key="key" :title="String(key)">
-        <common-card v-for="(team) in week" :record="team" :key="team.id" @click="() => animeEvent(team)" />
+        <common-card v-for="(team) in week" :record="team" :key="team.id" :attribute="cardAttribute"
+            @click="() => animeEvent(team)" />
     </common-bar>
 </template>

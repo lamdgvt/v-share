@@ -1,13 +1,16 @@
 <script lang="ts" setup>
 
-const route = useRoute()
 const router = useRouter()
 
 // 打开其他番组
-const openScheduleEvent = (team: any) => {
-    router.push({ path: `/animeCalendar/${team.bgmId}`, })
+const openScheduleEvent = (team: any) =>
+    router.push({ path: `/animeCalendar/${team.bgmId}` })
 
-    console.log(team)
+// 格式处理 季度 label
+const formatQuarterLabel = ({ date, quarterCode }: any) => {
+    const team = quarter.value.find((team: any) => team.code === quarterCode)
+
+    return `${date || ''} ${team?.name || ''}`
 }
 
 // 获取动漫季度信息
@@ -28,7 +31,6 @@ const schedule = computed(() => scheduleSync.data.value?.data || [])
 const quarter = computed(() => quarterSync.data.value?.data || [])
 const anime = computed<any>(() => scheduleAnimeSync.data.value?.data || {})
 
-
 </script>
 
 <template>
@@ -39,7 +41,7 @@ const anime = computed<any>(() => scheduleAnimeSync.data.value?.data || {})
         <div class="grid grid-cols-4 gap-4">
             <UButton v-for="team in schedule" :key="team.id" icon="i-heroicons-inbox" color="gray"
                 @click="openScheduleEvent(team)">
-                {{ team.bgmId }}
+                {{ formatQuarterLabel(team) }}
             </UButton>
         </div>
     </common-bar>

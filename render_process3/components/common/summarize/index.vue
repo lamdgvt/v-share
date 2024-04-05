@@ -65,7 +65,7 @@ const props = defineProps({
 
 // 打开资源搜索
 const openResourceSlideover = () =>
-    commonBitTorrentSlideoverRefs.value?.open()
+    commonBitTorrentSlideoverRefs.value?.open(props.record)
 
 // 制片
 const productionCompanies = computed(() => props.record?.production_companies?.map((item: any) => item.name).join(',') || '-')
