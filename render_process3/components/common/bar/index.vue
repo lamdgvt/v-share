@@ -23,6 +23,6 @@ const props = defineProps({
 
 <style lang="less" scoped>
 .card-content::-webkit-scrollbar {
-    // display: none;
+    display: none;
 }
 </style>
