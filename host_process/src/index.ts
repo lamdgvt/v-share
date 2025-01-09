@@ -25,7 +25,7 @@ const createWindow = (): void => {
 
   // and load the index.html of the app.
   if (process.env.NODE_ENV === 'development')
-    mainWindow.loadURL("http://localhost:3000");
+    mainWindow.loadURL("http://localhost:3300");
   else
     mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 

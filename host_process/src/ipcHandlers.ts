@@ -1,4 +1,5 @@
 import { ipcMain } from 'electron'
+import Webtorrent from 'webtorrent';
 const { exec } = require('child_process');
 
 // 关机
@@ -47,5 +48,21 @@ ipcMain.on('sheep', () => {
     }
 })
 
-// 
+// bitTorrent
+ipcMain.on('bitDownload', (event, bitTorrent: string) => {
+    try {
+        const client = new Webtorrent()
+
+        client.add(bitTorrent, (torrent) => {
+            // console.log(torrent)
+            const file = torrent.files.find(function (file) {
+                console.log(file.name)
+                return file.name.endsWith('.mp4')
+            })
+        })
+
+    } catch (error) {
+        console.log(error)
+    }
+})
 

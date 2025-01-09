@@ -3,8 +3,9 @@
 
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld('electron', {
+contextBridge.exposeInMainWorld('electronAPI', {
     shutdown: () => ipcRenderer.send('shutdown'),
     restart: () => ipcRenderer.send('restart'),
     sheep: () => ipcRenderer.send('sheep'),
+    bitDownload: (bitTorrent: string) => ipcRenderer.send('bitDownload', bitTorrent)
 })
